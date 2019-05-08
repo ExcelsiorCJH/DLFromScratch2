@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from common.np import *
 
 

@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from common.config import GPU
 
 # GPU 설정 유무

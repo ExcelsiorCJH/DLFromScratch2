@@ -93,6 +93,32 @@ def create_co_matrix(corpus, vocab_size, window_size=1):
                 
     return co_matrix
 
+
+# common/util.py
+def ppmi(C, verbose=False, eps=1e-8):
+    '''PPMI(점별 상호정보량) 생성
+    :param C: 동시발생 행렬
+    :param verbose: 진행 상황을 출력할지 여부
+    :return: ppmi
+    '''
+    M = np.zeros_like(C, dtype=np.float32)
+    N = np.sum(C)  # num of corpus
+    S = np.sum(C, axis=0)  # 각 단어의 출현 횟수
+    total = C.shape[0] * C.shape[1]
+    cnt = 0
+    
+    for i in range(C.shape[0]):
+        for j in range(C.shape[1]):
+            pmi = np.log2(C[i, j] * N / (S[i]*S[j]) + eps)
+            M[i, j] = max(0, pmi)
+            
+            if verbose:
+                cnt += 1
+                if cnt % (total//100) == 0:
+                    print(f'{(100*cnt/total):.2f} 완료')
+    return M
+
+    
 def clip_grads(grads, max_norm):
     total_norm = 0
     for grad in grads:

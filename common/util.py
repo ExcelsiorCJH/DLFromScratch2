@@ -68,6 +68,28 @@ def most_similar(query, word_to_id, id_to_word, word_matrix, top=5):
             return
 
 
+def convert_one_hot(corpus, vocab_size):
+    '''원핫 표현으로 변환
+    :param corpus: 단어 ID 목록(1차원 또는 2차원 넘파이 배열)
+    :param vocab_size: 어휘 수
+    :return: 원핫 표현(2차원 또는 3차원 넘파이 배열)
+    '''
+    N = corpus.shape[0]
+    if corpus.ndim == 1:
+        one_hot = np.zeros((N, vocab_size), dtype=np.int32)
+        for idx, word_id in enumerate(corpus):
+            one_hot[idx, word_id] = 1
+            
+    elif corpus.ndim == 2:
+        C = corpus.shape[1]
+        one_hot = np.zeros((N, C, vocab_size), dtype=np.int32)
+        for idx_0, word_ids in enumerate(corpus):
+            for idx_1, word_id in enumerate(word_ids):
+                one_hot[idx_0, idx_1, word_id] = 1
+                
+    return one_hot
+
+
 def create_co_matrix(corpus, vocab_size, window_size=1):
     '''동시발생 행렬 생성
     :param corpus: 말뭉치(단어 ID 목록)
@@ -117,6 +139,26 @@ def ppmi(C, verbose=False, eps=1e-8):
                 if cnt % (total//100) == 0:
                     print(f'{(100*cnt/total):.2f} 완료')
     return M
+
+
+def create_contexts_target(corpus, window_size=1):
+    '''맥락과 타깃 생성
+    :param corpus: 말뭉치(단어 ID 목록)
+    :param window_size: 윈도우 크기(윈도우 크기가 1이면 타깃 단어 좌우 한 단어씩이 맥락에 포함)
+    :return: (맥락, 타겟)의 np.array
+    '''
+    target = corpus[window_size:-window_size]
+    contexts = []
+    
+    for idx in range(window_size, len(corpus)-window_size):
+        cs = []
+        # wiondow_size만큼 타겟 단어 좌우 context 가져오기
+        for t in range(-window_size, window_size+1):
+            if t != 0:
+                cs.append(corpus[idx + t])
+        contexts.append(cs)
+        
+    return np.array(contexts), np.array(target)
 
     
 def clip_grads(grads, max_norm):

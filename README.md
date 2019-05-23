@@ -1,4 +1,4 @@
-# Deep Learning from Scratch 2
+# Deep Learning from Scratch ❷
 
 ## 1. 교재
 

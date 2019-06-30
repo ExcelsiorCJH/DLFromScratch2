@@ -11,8 +11,8 @@
 - 1장 - [신경망 복습](<https://github.com/ExcelsiorCJH/DLFromScratch2/blob/master/Chap01-Neural_Networks_Review/notebook.ipynb>)
 - 2장 - [자연어와 단어의 분산 표현](<https://github.com/ExcelsiorCJH/DLFromScratch2/blob/master/Chap02-Natural_Language_and_Distributed_Representation/notebook.ipynb>)
 - 3장 - [Word2Vec](<https://github.com/ExcelsiorCJH/DLFromScratch2/blob/master/Chap03-Word2Vec/notebook.ipynb>)
-- 4장 - Word2Vec 속도 개선
-- 5장 - 순환 신경망(RNN)
+- 4장 - [Word2Vec 속도 개선](<https://github.com/ExcelsiorCJH/DLFromScratch2/blob/master/Chap04-Word2Vec_Improved/notebook.ipynb>)
+- 5장 - [순환 신경망(RNN)](<https://github.com/ExcelsiorCJH/DLFromScratch2/blob/master/Chap05-Recurrent_Neural_Network/notebook.ipynb>)
 - 6장 - 게이트가 추가된 RNN
 - 7장 - RNN을 사용한 문장 생성
 - 8장 - 어텐션(Attention)
